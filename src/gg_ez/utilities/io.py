@@ -4,7 +4,7 @@ import yaml
 from pathlib import Path
 from typing import Union, Dict
 import lightgbm as lgm
-from utilities.utils import apply_regex_filter
+from gg_ez.utilities.utils import apply_regex_filter
 
 
 def read_json(file: Union[str, Path]) -> dict:
