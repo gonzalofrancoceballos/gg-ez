@@ -1,5 +1,5 @@
 import urllib
-from  http.client import HTTPResponse
+from http.client import HTTPResponse
 from abc import abstractmethod
 
 
@@ -16,7 +16,7 @@ class RapidApiConnector(ApiConnector):
         self._headers = {
             "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
             "x-rapidapi-key": api_key,
-            "useQueryString": True
+            "useQueryString": True,
         }
 
     def read(self, path="", mode=None) -> HTTPResponse:

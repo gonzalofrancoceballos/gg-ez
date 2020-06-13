@@ -1,10 +1,7 @@
-import os
 import json
 import yaml
 from pathlib import Path
-from typing import Union, Dict
-import lightgbm as lgm
-from gg_ez.utilities.utils import apply_regex_filter
+from typing import Union, Dict, Any, List
 
 
 def read_json(file: Union[str, Path]) -> dict:
@@ -60,47 +57,28 @@ def save_yaml(dict_object: dict, file_path: Union[str, Path]):
         yaml.dump(dict_object, file)
 
 
-def load_lightgbm_model(model_path: Path) -> lgm.Booster:
-    """
-    Load LightGBM model from path
+class JSONData:
+    """Handles data that is split into JSON files inside of a folder"""
 
-    :param model_path: path to model
+    def __init__(
+        self,
+        paths_dict: Dict[Any, Path],
+        data: Dict[Any, dict] = None,
+        lazy: bool = True,
+    ):
+        self.paths_dict = paths_dict
+        self._data = data
+        if not data and not lazy:
+            self._load()
 
-    :return: LighGBM model
-    """
+    def _load(self):
+        self._data = {k: read_json(self.paths_dict[k]) for k in self.paths_dict.keys()}
 
-    return lgm.Booster(model_file=str(model_path))
+    def save(self):
+        for k in self.paths_dict.keys():
+            save_json(self._data[k], self.paths_dict[k])
 
-
-def save_lightgbm_model(model: lgm.Booster, path: Union[str, Path]):
-    """
-    Save LightGBM model
-
-    :param model: LightGBM model
-    :param path: path to save model
-    """
-
-    model.save_model(str(path))
-
-
-def load_lightgbm_models_quantile(
-    model_quantile_path: Union[str, Path]
-) -> Dict[float, lgm.Booster]:
-    """
-    Loads all quantile models existing in a given path
-
-    :param model_quantile_path:
-
-    :return: disctionary containing models
-    """
-
-    model_files = os.listdir(model_quantile_path)
-    model_files = apply_regex_filter(model_files, "^model_")
-
-    models = {}
-    for model_file in model_files:
-        q = float(model_file.split("_")[-1].split(".")[0]) / 100
-        model_quantile = load_lightgbm_model(model_quantile_path / model_file)
-        models[q] = model_quantile
-
-    return models
+    def get_data(self):
+        if not self._data:
+            self._load()
+        return self._data

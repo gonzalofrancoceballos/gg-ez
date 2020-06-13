@@ -7,7 +7,12 @@ def create_pipeline(**kwargs):
         [
             node(
                 fetch_player_stats_in_league,
-                ["player_fixture_stats_load", "params:api_token", "params:league_id"],
+                [
+                    "player_fixture_stats_load",
+                    "params:api_token",
+                    "params:league_id",
+                    "params:sleep",
+                ],
                 "player_fixture_stats_save",
             )
         ]
