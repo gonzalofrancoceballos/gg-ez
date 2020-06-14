@@ -233,7 +233,7 @@ def skip(app, what, name, obj, skip, options):
 
 
 def setup(app):
-    app.connect("autodoc-process-docstring", autodoc_process_docstring)
+    app.connect("autodoc-pre_process-docstring", autodoc_process_docstring)
     app.connect("autodoc-skip-member", skip)
     # add Kedro stylesheets
     for stylesheet in find_stylesheets():
