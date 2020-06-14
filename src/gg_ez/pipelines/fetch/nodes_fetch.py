@@ -33,13 +33,44 @@ def fetch_player_stats_in_league(
         for x in games["api"]["fixtures"]
         if x["status"] == "Match Finished"
     ]
-    fixture_ids = list(filter(lambda x: x not in existing_stats, fixture_ids))
 
+    fixture_ids = list(filter(lambda x: x not in existing_stats, fixture_ids))
     logger.info(f"{len(fixture_ids)} game stats to download")
+
     all_stats = {}
     for fixture_id in fixture_ids:
-        all_stats[fixture_id] = fetch_player_stats_in_fixture(handler, fixture_id)
+        stats_i = fetch_player_stats_in_fixture(handler, fixture_id)
+        if stats_i["api"]["results"] > 0:
+            all_stats[fixture_id] = stats_i
+        else:
+            logger.warning(f"Fixture {fixture_id} fetched, but empty. Skipping...")
         if sleep:
             time.sleep(sleep)
 
     return all_stats
+
+
+def fetch_all_games(api_token: str, sleep: float = None):
+    """
+    Fetches all games in a league
+    :param api_token:
+    :param sleep:
+
+    :return:
+    """
+
+    logger = logging.getLogger(__name__)
+
+    handler = JSONHandler(RapidApiConnector(api_token))
+    leagues = handler.get_json("leagues")
+    league_ids = [league["league_id"] for league in leagues["api"]["leagues"]]
+    all_games = {}
+
+    logger.info(f"Fetching game info: {len(league_ids)} leagues")
+    for league_id in league_ids:
+        logger.info(f"Fetching game info for league: {league_id}")
+        game = handler.get_json(f"fixtures/league/{league_id}")
+        all_games[league_id] = game
+        time.sleep(sleep)
+
+    return all_games

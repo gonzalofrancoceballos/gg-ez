@@ -1,17 +1,25 @@
-# Here you can define all your data sets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://kedro.readthedocs.io/en/stable/04_user_guide/04_data_catalog.html
-
+# 01_raw
 
 player_fixture_stats_load:
-  type: gg_ez.datasets.JSONFolderDataset
+  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
 
 player_fixture_stats_save:
-  type: gg_ez.datasets.JSONFolderDataset
+  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
+
+fixture_league_save:
+  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
+  filepath: data/01_raw/fixtures/league
+  lazy: true
+  suffix: league
+
+fixtures_leagues_processsed:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/game_stats.csv
+  save_args:
+    index: false

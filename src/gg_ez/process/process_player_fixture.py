@@ -1,5 +1,8 @@
 import pandas as pd
+import numpy as np
 from gg_ez.utilities.pandas import unpack_dict
+from typing import List
+
 
 COLS_TO_UNPACK = [
     "shots",
@@ -14,7 +17,7 @@ COLS_TO_UNPACK = [
 ]
 
 
-def process_games_stats(games):
+def process_players_fixtures_stats(games: List[dict]):
     """
 
     :param games:
@@ -24,13 +27,15 @@ def process_games_stats(games):
 
     games_stats = []
     for i, game in enumerate(games):
-        games_stats.append(process_game_stats(game))
+        games_stats.append(process_players_fixture_stats(game))
 
     games_stats = pd.concat(games_stats)
+
+    games_stats["rating"] = games_stats["rating"].apply(fix_rating)
     return games_stats
 
 
-def process_game_stats(game):
+def process_players_fixture_stats(game: dict):
     """
 
     :param game:
@@ -44,3 +49,11 @@ def process_game_stats(game):
     game_stats = game_stats.drop(columns=COLS_TO_UNPACK)
 
     return game_stats
+
+
+def fix_rating(x):
+    """ Helper function to conver rating to numeric"""
+    if x == "–" or x is None:
+        return np.nan
+    else:
+        return float(x)
