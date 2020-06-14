@@ -23,7 +23,7 @@ def expand_by_period(
 ):
     """
 
-    Efficient implementation of a pre_process for creating time-wise aggregations
+    Efficient implementation of a process for creating time-wise aggregations
     for a set of variables for each ID
 
         - The sampling frequency between periods must be constant
@@ -56,7 +56,7 @@ def expand_by_period(
 
     :param suffix: suffix to be added to new column names (str)
 
-    :param columns_to_expand: list of columns to pre_process. If not defined, all
+    :param columns_to_expand: list of columns to process. If not defined, all
     columns will be used.
 
         If agg is given a dictionary, this parameter is omitted (list)
@@ -80,7 +80,7 @@ def expand_by_period(
 
         = False) (bool)
 
-    :param n_jobs: number of parallel jobs to use to run the pre_process (Default =
+    :param n_jobs: number of parallel jobs to use to run the process (Default =
     1) (int)
 
     :param copy: if set to True, a copy of the df_raw is made in order to avoid
