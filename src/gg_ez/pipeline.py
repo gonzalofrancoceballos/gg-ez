@@ -14,7 +14,7 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
 
     """
 
-    fetch_player_stats_pipeline = fetch.create_pipeline_pplayer_stats()
+    fetch_player_stats_pipeline = fetch.create_pipeline_player_stats()
     fetch_all_games_pipeline = fetch.create_pipeline_fetch_all_games()
     process_fixtures_leagues = pre_process.create_pipeline_process_fixtures_leagues()
 
