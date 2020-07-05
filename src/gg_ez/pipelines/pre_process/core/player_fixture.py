@@ -53,7 +53,16 @@ def process_players_fixture_stats(game: dict):
 
 def fix_rating(x):
     """ Helper function to conver rating to numeric"""
+
     if x == "–" or x is None:
         return np.nan
     else:
         return float(x)
+
+
+def wrapper_player_fixture(league):
+    res = []
+    for fixture in league["api"]["fixtures"]:
+        res.append(process_players_fixture_stats(fixture))
+
+    return pd.concat(res)

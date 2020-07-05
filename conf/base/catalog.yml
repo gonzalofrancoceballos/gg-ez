@@ -1,25 +1,39 @@
 # 01_raw
-
 player_fixture_stats_load:
-  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  data_format: "json"
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
-
 player_fixture_stats_save:
-  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  data_format: "json"
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
-
 fixture_league_save:
-  type: gg_ez.kedro_utilities.datasets.JSONFolderDataset
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  data_format: "json"
   filepath: data/01_raw/fixtures/league
   lazy: true
   suffix: league
+leagues:
+  type: yaml.YAMLDataSet
+  filepath: data/01_raw/leagues/leagues.yml
 
-fixtures_leagues_processsed:
+# 02_intermediate
+leagues_processed:
+  type: pandas.ExcelDataSet
+  filepath: data/02_intermediate/leagues.xlsx
+  save_args:
+    index: false
+fixtures_leagues_processed:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/game_stats.csv
+  save_args:
+    index: false
+players_fixtures_processed:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/player_stats.csv
   save_args:
     index: false

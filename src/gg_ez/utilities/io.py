@@ -1,7 +1,7 @@
 import json
 import yaml
 from pathlib import Path
-from typing import Union, Dict, Any, List
+from typing import Union
 
 
 def read_json(file: Union[str, Path]) -> dict:
@@ -55,30 +55,3 @@ def save_yaml(dict_object: dict, file_path: Union[str, Path]):
 
     with open(file_path, "w") as file:
         yaml.dump(dict_object, file)
-
-
-class JSONData:
-    """Handles data that is split into JSON files inside of a folder"""
-
-    def __init__(
-        self,
-        paths_dict: Dict[Any, Path],
-        data: Dict[Any, dict] = None,
-        lazy: bool = True,
-    ):
-        self.paths_dict = paths_dict
-        self._data = data
-        if not data and not lazy:
-            self._load()
-
-    def _load(self):
-        self._data = {k: read_json(self.paths_dict[k]) for k in self.paths_dict.keys()}
-
-    def save(self):
-        for k in self.paths_dict.keys():
-            save_json(self._data[k], self.paths_dict[k])
-
-    def get_data(self):
-        if not self._data:
-            self._load()
-        return self._data
