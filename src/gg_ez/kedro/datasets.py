@@ -38,7 +38,7 @@ class FolderDataDataset(AbstractDataSet):
         self._suffix = suffix
         self._id_list = id_list
         self._lazy = lazy
-        self._save_args = save_args
+        self._save_args = save_args if save_args else {}
 
     def _load(self) -> FolderData:
         """Explores directory and returns a `FolderData` object containing all files"""
