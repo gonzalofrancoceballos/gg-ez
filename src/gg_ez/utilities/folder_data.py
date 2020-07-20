@@ -70,3 +70,16 @@ class ExcelFolderData(FolderData):
     def save(self, **kwargs):
         for k in self.paths_dict.keys():
             self._data[k].to_excel(self.paths_dict[k], **kwargs)
+
+
+class HDFFolderData(FolderData):
+    """Handles data that is split into EXCEL files inside of a folder"""
+
+    def _load(self):
+        self._data = {
+            k: pd.read_hdf(self.paths_dict[k]) for k in self.paths_dict.keys()
+        }
+
+    def save(self, **kwargs):
+        for k in self.paths_dict.keys():
+            self._data[k].to_hdf(self.paths_dict[k], **kwargs, key=str(k))

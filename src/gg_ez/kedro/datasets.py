@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from gg_ez.utilities.io import save_json
 from kedro.io import AbstractDataSet
 from typing import Dict, Any
 
@@ -8,6 +7,7 @@ from gg_ez.utilities.folder_data import (
     CSVFolderData,
     JSONFolderData,
     ExcelFolderData,
+    HDFFolderData,
     FolderData,
 )
 
@@ -15,6 +15,8 @@ DATA_FOLDER_OBJECTS = {
     "csv": CSVFolderData,
     "json": JSONFolderData,
     "xlsx": ExcelFolderData,
+    "hdf": HDFFolderData,
+    "h5": HDFFolderData,
 }
 
 
