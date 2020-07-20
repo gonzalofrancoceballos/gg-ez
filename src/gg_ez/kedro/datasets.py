@@ -21,13 +21,22 @@ DATA_FOLDER_OBJECTS = {
 class FolderDataDataset(AbstractDataSet):
     """Handles i/o for data that is split into files inside of a folder"""
 
-    def __init__(self, filepath, data_format, suffix: str, id_list=None, lazy=True):
+    def __init__(
+        self,
+        filepath,
+        data_format,
+        suffix: str,
+        id_list=None,
+        lazy=True,
+        save_args=None,
+    ):
         self._filepath = Path(filepath)
         self._format = data_format
         self.folder_data_object = self._get_folder_data_object()
         self._suffix = suffix
         self._id_list = id_list
         self._lazy = lazy
+        self._save_args = save_args
 
     def _load(self) -> FolderData:
         """Explores directory and returns a `FolderData` object containing all files"""
@@ -52,7 +61,7 @@ class FolderDataDataset(AbstractDataSet):
         data_folder_object = self._get_folder_data_object()(
             paths_dict=paths_dict, data=data
         )
-        data_folder_object.save()
+        data_folder_object.save(**self._save_args)
 
     def _exists(self) -> bool:
         return Path(self._filepath).exists()
