@@ -22,8 +22,9 @@ def process_fixture(fixture: dict):
 
 
 def wrapper_fixture_league(league):
+    league_id, fixtures = league
     res = []
-    for fixture in league["api"]["fixtures"]:
+    for fixture in fixtures["api"]["fixtures"]:
         res.append(process_fixture(fixture))
 
-    return pd.concat(res)
+    return [league_id, pd.concat(res)]

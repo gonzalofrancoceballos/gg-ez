@@ -89,7 +89,7 @@ def fetch_player_stats_in_leagues(
     for league_id in league_ids:
         logger.info(f"Exploring league_id: {league_id}")
         fixtures_in_league = handler.get_json(f"fixtures/league/{league_id}")
-        finished_fixtures += (get_finished_fixtures(fixtures_in_league))
+        finished_fixtures += get_finished_fixtures(fixtures_in_league)
         if sleep:
             time.sleep(sleep)
 

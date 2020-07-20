@@ -27,13 +27,32 @@ leagues_processed:
   filepath: data/02_intermediate/leagues.xlsx
   save_args:
     index: false
-fixtures_leagues_processed:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/game_stats.csv
+fixtures_leagues_processed_load:
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  filepath: data/02_intermediate/fixtures/league
+  data_format: "csv"
+  lazy: true
+  suffix: league
+fixtures_leagues_processed_save:
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  filepath: data/02_intermediate/fixtures/league
+  data_format: "csv"
+  lazy: true
+  suffix: league
   save_args:
     index: false
-players_fixtures_processed:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/player_stats.csv
+
+players_fixtures_processed_load:
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  filepath: data/02_intermediate/players/fixture
+  data_format: "csv"
+  lazy: true
+  suffix: stats
+players_fixtures_processed_save:
+  type: gg_ez.kedro.datasets.FolderDataDataset
+  filepath: data/02_intermediate/players/fixture
+  data_format: "csv"
+  lazy: true
+  suffix: stats
   save_args:
     index: false

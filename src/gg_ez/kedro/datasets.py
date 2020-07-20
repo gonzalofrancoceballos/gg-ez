@@ -44,7 +44,9 @@ class FolderDataDataset(AbstractDataSet):
         """Explores directory and returns a `FolderData` object containing all files"""
         if self._filepath.exists():
             files_in_path = os.listdir(self._filepath)
-            files_in_path = [file for file in files_in_path if ".json" in file]
+            files_in_path = [
+                file for file in files_in_path if f".{self._format}" in file
+            ]
             full_paths = [self._filepath / file for file in files_in_path]
             ids = [file.split(f"_{self._suffix}")[0] for file in files_in_path]
             paths_dict = {k: v for k, v in zip(ids, full_paths)}

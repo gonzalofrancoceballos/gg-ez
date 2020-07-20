@@ -1,6 +1,5 @@
 import re
 import numpy as np
-import pandas as pd
 from typing import List, Iterable, Union, Callable
 
 
@@ -17,31 +16,6 @@ def apply_regex_filter(values: Iterable[str], pattern: str) -> List[str]:
     return list(filter(lambda x: re.search(pattern, x), values))
 
 
-def count_by(table: pd.DataFrame, agg_columns: Union[str, List[str]]):
-    """
-    Computes a count by keys over a table
-
-    :param table: input table
-    :param agg_columns: key columns
-
-    :return:
-    """
-
-    error = "Input must be str or List[str]"
-    assert isinstance(agg_columns, str) | isinstance(agg_columns, list), error
-
-    if isinstance(agg_columns, str):
-        agg_columns = [agg_columns]
-
-    return (
-        table.groupby(agg_columns)
-        .size()
-        .reset_index()
-        .rename(columns={0: "cnt"})
-        .sort_values("cnt", ascending=False)
-    )
-
-
 def round_to_resolution(
     x: np.array, resolution: Union[float, int], round_method: Callable = np.round
 ) -> np.array:
@@ -56,3 +30,19 @@ def round_to_resolution(
     """
 
     return resolution * round_method(x / resolution)
+
+
+def kv_list_to_dict(kv_list: Iterable[List]) -> dict:
+    """Converts list of key-values to dictionary"""
+    output = {}
+    for k, v in kv_list:
+        output[k] = v
+    return output
+
+
+def dict_to_kv_list(my_dict: dict) -> Iterable:
+    """Converts dictionary to list of key-values """
+    output = []
+    for k in my_dict:
+        output.append([k, my_dict[k]])
+    return output

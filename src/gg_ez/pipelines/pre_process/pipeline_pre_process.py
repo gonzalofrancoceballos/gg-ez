@@ -15,8 +15,12 @@ def create_pipeline_preprocess_fixtures_leagues(**kwargs):
         [
             node(
                 pre_process_fixtures_leagues,
-                ["fixture_league_save", "params:n_cores",],
-                "fixtures_leagues_processed",
+                [
+                    "fixture_league_save",
+                    "fixtures_leagues_processed_load",
+                    "params:n_cores",
+                ],
+                "fixtures_leagues_processed_save",
             ),
         ]
     )
@@ -27,8 +31,12 @@ def create_pipeline_preprocess_players_fixtures(**kwargs):
         [
             node(
                 pre_process_players_fixtures,
-                ["player_fixture_stats_save", "params:n_cores",],
-                "players_fixtures_processed",
+                [
+                    "player_fixture_stats_save",
+                    "players_fixtures_processed_load",
+                    "params:n_cores",
+                ],
+                "players_fixtures_processed_save",
             ),
         ]
     )
