@@ -64,9 +64,9 @@ class ExcelFolderData(FolderData):
 
     def _load(self):
         self._data = {
-            k: pd.read_csv(self.paths_dict[k]) for k in self.paths_dict.keys()
+            k: pd.read_excel(self.paths_dict[k]) for k in self.paths_dict.keys()
         }
 
     def save(self, **kwargs):
         for k in self.paths_dict.keys():
-            self._data[k].to_csv(self.paths_dict[k], **kwargs)
+            self._data[k].to_excel(self.paths_dict[k], **kwargs)
