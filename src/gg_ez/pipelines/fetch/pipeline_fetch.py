@@ -13,11 +13,12 @@ def create_pipeline_fetch_games(**kwargs):
                 fetch_games,
                 [
                     "params:leagues",
+                    "leagues",
                     "params:api_token",
                     "params:only_current",
                     "params:sleep",
                 ],
-                "fixture_league_save",
+                "fixtures",
             ),
         ]
     )
@@ -29,13 +30,15 @@ def create_pipeline_player_stats(**kwargs):
             node(
                 fetch_player_stats_in_leagues,
                 [
-                    "player_fixture_stats_load",
+                    "players_check_existing",
+                    "leagues",
+                    "empty_games_check_existing",
                     "params:leagues",
                     "params:api_token",
                     "params:only_current",
                     "params:sleep",
                 ],
-                "player_fixture_stats_save",
+                ["players", "empty_games"],
             ),
         ]
     )
