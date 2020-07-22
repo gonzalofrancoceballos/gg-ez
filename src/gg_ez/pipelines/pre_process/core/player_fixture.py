@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from gg_ez.utilities.pandas import unpack_dict
+from gg_ez.utilities.pandas import unpack_columns
 from typing import List, Tuple
 
 
@@ -27,7 +27,7 @@ def process_players_fixture_stats(game: List) -> Tuple:
 
     game_id, game_stats = game
     game_stats = pd.DataFrame(game_stats["api"]["players"])
-    unpacked_cols = unpack_dict(game_stats, COLS_TO_UNPACK)
+    unpacked_cols = unpack_columns(game_stats, COLS_TO_UNPACK)
     game_stats = pd.concat([game_stats, unpacked_cols], axis=1)
     game_stats = game_stats.drop(columns=COLS_TO_UNPACK)
 
