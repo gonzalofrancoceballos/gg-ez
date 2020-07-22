@@ -82,9 +82,7 @@ def pre_process_players_fixtures(
     existing = [p.name.split("_")[0] for p in existing]
     to_process = [[k, v] for k, v in stats if k not in existing]
 
-    logger.info(
-        f"Pre-processing stats for {len(to_process)} games..."
-    )
+    logger.info(f"Pre-processing stats for {len(to_process)} games...")
 
     processed_stats = apply_multiprocessing(
         process_players_fixture_stats, to_process, n_cores=n_cores

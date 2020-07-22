@@ -1,25 +1,58 @@
 # 01_raw
+leagues:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: leagues
+fixtures:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: fixtures
+fixtures_check_existing:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: fixtures
+players:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: players
+players_check_existing:
+    type: gg_ez.kedro.mongo_dataset.MongoDataset
+    address: mongodb://localhost:27017
+    database_name: gg-ez-dev
+    collection_name: players
+empty_games:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: empty-games
+empty_games_check_existing:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: empty-games
+
 player_fixture_stats_load:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   data_format: "json"
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
 player_fixture_stats_save:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   data_format: "json"
   filepath: data/01_raw/players/fixture
   lazy: true
   suffix: stats
 fixture_league_save:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   data_format: "json"
   filepath: data/01_raw/fixtures/league
   lazy: true
   suffix: league
-leagues:
-  type: yaml.YAMLDataSet
-  filepath: data/01_raw/leagues/leagues.yml
 
 # 02_intermediate
 leagues_processed:
@@ -28,13 +61,13 @@ leagues_processed:
   save_args:
     index: false
 fixtures_leagues_processed_load:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/fixtures/league
   data_format: "csv"
   lazy: true
   suffix: league
 fixtures_leagues_processed_save:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/fixtures/league
   data_format: "csv"
   lazy: true
@@ -43,13 +76,13 @@ fixtures_leagues_processed_save:
     index: false
 
 players_fixtures_processed_load:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/players/fixture
   data_format: "csv"
   lazy: true
   suffix: stats
 players_fixtures_processed_save:
-  type: gg_ez.kedro.datasets.FolderDataDataset
+  type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/players/fixture
   data_format: "csv"
   lazy: true

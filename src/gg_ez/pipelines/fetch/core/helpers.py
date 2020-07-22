@@ -1,18 +1,29 @@
 import pandas as pd
-
-from gg_ez.api.connector import RapidApiConnector
-from gg_ez.api.handlers import JSONHandler
+from typing import List
 from gg_ez.pipelines.pre_process.core.league import leagues_dict2df
 
 
-def get_league_ids(valid_leagues, api_token, only_current=False):
-    handler = JSONHandler(RapidApiConnector(api_token))
-    leagues = handler.get_json("leagues")
+def get_league_ids(
+    leagues: List[dict], valid_leagues: List[List[str]], only_current: bool = False
+):
+    """
+    Filters league ids to download based on is of leagues
+
+    :param valid_leagues:
+    :param leagues:
+    :param only_current:
+
+    :return:
+    """
+
     leagues = leagues_dict2df(leagues)
     valid_leagues_df = pd.DataFrame(valid_leagues, columns=["country", "name"])
     leagues = pd.merge(leagues, valid_leagues_df)
     if only_current:
-        leagues = leagues[leagues["is_current"] == 1].copy()
+        leagues = leagues[
+            (leagues["is_current"] == 1)
+            & (leagues["coverage_fixtures_players_statistics"] == True)
+        ].copy()
     league_ids = leagues["league_id"]
     return league_ids
 
