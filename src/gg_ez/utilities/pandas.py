@@ -1,15 +1,16 @@
-from typing import Union, List
+from typing import Union, List, Any
 
 import pandas as pd
 
 
-def unpack_dict(df, cols):
+def unpack_columns(df, cols: List[Any]) -> pd.DataFrame:
     """
+    Unpacks 2-level columns in a DataFrame
 
-    :param df:
-    :param cols:
+    :param df: table to unpack
+    :param cols: name of columns to unpack
 
-    :return:
+    :return: table with unpacked columns
     """
 
     if isinstance(cols, str):
