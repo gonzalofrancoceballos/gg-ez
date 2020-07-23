@@ -39,9 +39,9 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     )
 
     return {
-        "fetch-player-stats": fetch_player_stats_pipeline,
-        "fetch-games": fetch_games_pipeline,
         "fetch-leagues": fetch_leagues_pipeline,
+        "fetch-games": fetch_games_pipeline,
+        "fetch-players": fetch_player_stats_pipeline,
         "fetch-all": fatch_all,
         "pre-process-leagues": preprocess_leagues,
         "pre-process-games": preprocess_fixtures_leagues,
