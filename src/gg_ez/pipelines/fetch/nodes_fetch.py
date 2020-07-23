@@ -94,7 +94,9 @@ def fetch_player_stats_in_leagues(
     handler = JSONHandler(RapidApiConnector(api_token))
 
     # Get league_ids of all leagues to download stats from
-    league_ids = get_league_ids(leagues, valid_leagues, only_current)
+    league_ids = get_league_ids(
+        leagues, valid_leagues, only_current, fixtures_players_statistics=True
+    )
     logger.info(f"{len(league_ids)} leagues will be checked")
 
     # Identify all games that have finished in those leagues
@@ -121,7 +123,7 @@ def fetch_player_stats_in_leagues(
     # Download games
     all_stats = []
     all_empty_stats = []
-    for fixture_id in list(finished_fixtures_not_downloaded)[0:5000]:
+    for fixture_id in list(finished_fixtures_not_downloaded)[0:70000]:
         game = fetch_player_stats_in_fixture(handler, fixture_id)
         if game["api"]["results"] > 0:
             for player in game["api"]["players"]:
