@@ -35,31 +35,24 @@ empty_games_check_existing:
   database_name: gg-ez-dev
   collection_name: empty-games
 
-player_fixture_stats_load:
-  type: gg_ez.kedro.folder_dataset.FolderDataDataset
-  data_format: "json"
-  filepath: data/01_raw/players/fixture
-  lazy: true
-  suffix: stats
-player_fixture_stats_save:
-  type: gg_ez.kedro.folder_dataset.FolderDataDataset
-  data_format: "json"
-  filepath: data/01_raw/players/fixture
-  lazy: true
-  suffix: stats
-fixture_league_save:
-  type: gg_ez.kedro.folder_dataset.FolderDataDataset
-  data_format: "json"
-  filepath: data/01_raw/fixtures/league
-  lazy: true
-  suffix: league
-
 # 02_intermediate
 leagues_processed:
-  type: pandas.ExcelDataSet
-  filepath: data/02_intermediate/leagues.xlsx
-  save_args:
-    index: false
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: leagues-processed
+fixtures_processed:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: fixtures-processed
+players_processed:
+  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  address: mongodb://localhost:27017
+  database_name: gg-ez-dev
+  collection_name: players-processed
+
+
 fixtures_leagues_processed_load:
   type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/fixtures/league

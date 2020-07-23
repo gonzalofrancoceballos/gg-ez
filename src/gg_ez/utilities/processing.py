@@ -1,7 +1,7 @@
 from queue import Queue
 from threading import Thread
 from multiprocessing import Pool
-from typing import Callable, Iterable
+from typing import Callable, Iterable, List
 
 
 class Worker(Thread):
@@ -73,9 +73,7 @@ def apply_multithread(
         return results
 
 
-def apply_multiprocessing(
-    fun: Callable, iterable: Iterable, n_cores: int = 1
-) -> Iterable:
+def apply_multiprocessing(fun: Callable, iterable: Iterable, n_cores: int = 1) -> List:
     """
     Wrapper to apply a function on an iterable in multiprocessing
 
