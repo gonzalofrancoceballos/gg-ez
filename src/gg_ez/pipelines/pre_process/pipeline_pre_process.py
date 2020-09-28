@@ -7,7 +7,7 @@ from .nodes_pre_process import (
 
 
 def create_pipeline_preprocess_leagues(**kwargs):
-    return Pipeline([node(pre_process_leagues, "leagues", "leagues_processed",),])
+    return Pipeline([node(pre_process_leagues, "leagues", "leagues_processed")])
 
 
 def create_pipeline_preprocess_fixtures_leagues(**kwargs):
@@ -15,7 +15,7 @@ def create_pipeline_preprocess_fixtures_leagues(**kwargs):
         [
             node(
                 pre_process_fixtures,
-                ["fixtures", "params:n_cores",],
+                ["fixtures", "params:n_cores"],
                 "fixtures_processed",
             ),
         ]
@@ -26,9 +26,7 @@ def create_pipeline_preprocess_players_fixtures(**kwargs):
     return Pipeline(
         [
             node(
-                pre_process_players,
-                ["players", "params:n_cores",],
-                "players_processed",
+                pre_process_players, ["players", "params:n_cores"], "players_processed",
             ),
         ]
     )
