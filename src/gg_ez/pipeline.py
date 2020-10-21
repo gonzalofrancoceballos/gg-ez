@@ -27,20 +27,15 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     )
 
     fatch_all = (
-            fetch_player_stats_pipeline +
-            fetch_games_pipeline +
-            fetch_leagues_pipeline
+        fetch_player_stats_pipeline + fetch_games_pipeline + fetch_leagues_pipeline
     )
 
     preprocess_all = (
-            preprocess_leagues
-            + preprocess_fixtures_leagues
-            + preprocess_players_fixtures
+        preprocess_leagues + preprocess_fixtures_leagues + preprocess_players_fixtures
     )
 
     return {
         "fetch-leagues": fetch_leagues_pipeline,
-
         "fetch-all": (
             fetch_leagues_pipeline + fetch_games_pipeline + fetch_player_stats_pipeline
         ),
