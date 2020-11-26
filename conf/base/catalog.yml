@@ -1,57 +1,72 @@
+# 00_API
+rapidapi:
+  type: gg_ez.kedro.rapidapi_dataset.RapidAPIDataSet
+  credentials: rapidapi
+  layer: API
+
 # 01_raw
-leagues:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+leagues_raw:
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: leagues
-fixtures:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  layer: Raw
+games_raw:
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: fixtures
+  layer: Raw
 fixtures_check_existing:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: fixtures
+  layer: Auxiliary
 players:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: players
+  layer: Raw
 players_check_existing:
-    type: gg_ez.kedro.mongo_dataset.MongoDataset
+    type: gg_ez.kedro.mongo_dataset.MongoDataSet
     address: mongodb://localhost:27017
     database_name: gg-ez-dev
     collection_name: players
+    layer: Auxiliary
 empty_games:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: empty-games
+  layer: Raw
 empty_games_check_existing:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: empty-games
+  layer: Auxiliary
 
 # 02_intermediate
 leagues_processed:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: leagues-processed
-fixtures_processed:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  layer: Processed
+games_processed:
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: fixtures-processed
+  layer: Processed
 players_processed:
-  type: gg_ez.kedro.mongo_dataset.MongoDataset
+  type: gg_ez.kedro.mongo_dataset.MongoDataSet
   address: mongodb://localhost:27017
   database_name: gg-ez-dev
   collection_name: players-processed
-
+  layer: Processed
 
 fixtures_leagues_processed_load:
   type: gg_ez.kedro.folder_dataset.FolderDataDataset
@@ -74,6 +89,7 @@ players_fixtures_processed_load:
   data_format: "csv"
   lazy: true
   suffix: stats
+  layer: Processed
 players_fixtures_processed_save:
   type: gg_ez.kedro.folder_dataset.FolderDataDataset
   filepath: data/02_intermediate/players/fixture
@@ -82,3 +98,4 @@ players_fixtures_processed_save:
   suffix: stats
   save_args:
     index: false
+  layer: Processed
