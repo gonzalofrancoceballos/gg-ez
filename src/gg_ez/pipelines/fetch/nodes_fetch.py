@@ -5,8 +5,6 @@ from typing import List
 from datetime import datetime
 
 from gg_ez.pipelines.fetch.core.helpers import get_league_ids, get_finished_fixtures
-from gg_ez.api.handlers import JSONHandler
-from gg_ez.api.connector import RapidApiConnector
 from gg_ez.pipelines.fetch.core.player_fixture import fetch_player_stats_in_fixture
 
 
