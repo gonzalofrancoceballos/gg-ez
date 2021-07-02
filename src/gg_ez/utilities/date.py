@@ -1,6 +1,7 @@
-import pandas as pd
+from typing import Any, List
+
 import numpy as np
-from typing import List, Any
+import pandas as pd
 
 
 def expand_dates(
@@ -34,7 +35,8 @@ def expand_dates(
     |   B   |   Y   | 20191008 |
     |--------------------------|
 
-    :param df: table to expand. Should have at least one key columns,a from-column and a to-column
+    :param df: table to expand. Should have at least one key columns,a from-column
+        and a to-column
     :param key_cols: name of columns to keep along with from, to columns
     :param from_col: name of "from" column
     :param to_col: name of "to" column

@@ -1,6 +1,7 @@
 from kedro.io import AbstractDataSet
-from gg_ez.api.handlers import JSONHandler
+
 from gg_ez.api.connector import RapidApiConnector
+from gg_ez.api.handlers import JSONHandler
 
 
 class RapidAPIDataSet(AbstractDataSet):
@@ -19,4 +20,4 @@ class RapidAPIDataSet(AbstractDataSet):
         pass
 
     def _describe(self):
-        return f"RapidAPIDataSet"
+        return "RapidAPIDataSet"

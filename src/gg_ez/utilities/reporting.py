@@ -1,9 +1,10 @@
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Tuple, Union
+
 import numpy as np
 import pandas as pd
 from lightgbm import Booster
-from typing import Tuple, List, Dict, Union, Iterable, Any
 
-from pathlib import Path
 from utilities.io import save_yaml
 from utilities.model import get_feature_importance
 from utilities.plot import plot_prediction_distributions, plot_prediction_vs_target
@@ -200,8 +201,10 @@ def variable_summary_by_percentile(
     Computes the summary variable in predictions_df (selecting only
     columns_to_score), splitted by percentile
 
-    :param predictions_df: pd.DataFrame with master tale and predictions (type: pd.DataFrame)
-    :param columns_to_score: List with the names of the variables in predictions_df (type: list)
+    :param predictions_df: pd.DataFrame with master tale and predictions
+        (type: pd.DataFrame)
+    :param columns_to_score: List with the names of the variables in predictions_df
+        (type: list)
     :param score_col: name of score column (type: str)
     :param n_bins: number of bins. 10=deciles, 100=percentiles, etc (type: int)
     :param feature_importance: feature importance table (type: pd.DataFrame)

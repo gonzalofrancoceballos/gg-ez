@@ -1,10 +1,9 @@
 import logging
 import time
-
-from typing import List
 from datetime import datetime
+from typing import List
 
-from gg_ez.pipelines.fetch.core.helpers import get_league_ids, get_finished_fixtures
+from gg_ez.pipelines.fetch.core.helpers import get_finished_fixtures, get_league_ids
 from gg_ez.pipelines.fetch.core.player_fixture import fetch_player_stats_in_fixture
 
 

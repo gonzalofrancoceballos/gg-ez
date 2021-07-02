@@ -1,6 +1,6 @@
 import urllib
-from http.client import HTTPResponse
 from abc import abstractmethod
+from http.client import HTTPResponse
 
 
 class ApiConnector:

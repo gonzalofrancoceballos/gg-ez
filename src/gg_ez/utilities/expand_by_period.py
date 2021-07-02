@@ -178,6 +178,7 @@ def _generate_feature_aggregations(
     """
     Given a DataFrame, this function applies the aggregation function specified
     over the periods indicated.
+
     :param df: dataframe to use as a base for generating the aggregations
     :param agg_col: name of the column to aggregate by (str)
     :param agg_funcs: functions to do the aggregations (list or str)
@@ -189,6 +190,7 @@ def _generate_feature_aggregations(
     :param latest_period_available: how many periods of lag until data is
     available (Default = 0) (str)
     :param verbose: indicates if the function must print messages (bool)
+
     :return: list of tuples, each of them indicating the name of the feature
     created and the feature itself (list)
     """
@@ -228,7 +230,8 @@ def _generate_feature_aggregations(
                     ][::-1],
                     axis=0,
                 )
-                # Axis inversion to have the most close to the present time in the first position
+                # Axis inversion to have the most close to the present time in
+                # the first position
             else:  # Future
                 aggregation = agg_func(
                     shift_matrix[
@@ -247,8 +250,8 @@ def _generate_feature_aggregations(
 def _generate_shift_matrix(feature: np.array, mask: np.array, periods: list):
     """
     Generates a matrix with the shift periods needed for building the expanded
-    dataframe. This function is called from
-    the expand_by_period function.
+    dataframe. This function is called from the expand_by_period function.
+
     :param feature: vector with the feature data, extracted from the sorted
     dataframe (np.array)
     :param mask: vector with the same elements as 'feature' - 1 with boolean
@@ -279,7 +282,8 @@ def _generate_shift_matrix(feature: np.array, mask: np.array, periods: list):
     # We'll collect shifted arrays in this variable.
     shift_matrix = [feature]
 
-    # And we shift the data one-by-one, omit the value at id change, then collect in shift_matrix.
+    # And we shift the data one-by-one, omit the value at id change,
+    # then collect in shift_matrix.
     for period in range(np.min([min(periods), 0]), np.max([max(periods), 0])):
         if period == 0:
             feature = feature_original.copy()

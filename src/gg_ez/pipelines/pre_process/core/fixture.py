@@ -1,4 +1,5 @@
 import pandas as pd
+
 from gg_ez.utilities.pandas import unpack_columns
 
 COLS_TO_UNPACK = ["league", "homeTeam", "awayTeam", "score"]

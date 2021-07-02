@@ -1,8 +1,8 @@
-import pandas as pd
+from typing import Any, List, Tuple, Union
+
 import numpy as np
-from lightgbm import Booster
-from typing import Union, List, Any, Tuple
-from lightgbm import Dataset
+import pandas as pd
+from lightgbm import Booster, Dataset
 
 
 def to_log(x: Union[np.array, pd.Series]) -> np.array:
@@ -109,18 +109,18 @@ def one_hot_encoding(
     if labels is None:
         print("[ONE-HOT-ENCODING] No label list especified, inferring from data")
         labels = df[str_col].unique()
-    print(f"[ONE-HOT-ENCODING] Labels are: {labels}")
+    print("[ONE-HOT-ENCODING] Labels are: {labels}")
 
-    print(f"[ONE.HOT-ENCODING] Generating new variables")
+    print("[ONE-HOT-ENCODING] Generating new variables")
     for label in labels:
         df[f"{str_col}_{label}"] = np.where(df[str_col] == label, 1, 0)
 
     if add_other:
-        print(f"[ONE-HOT-ENCODING] Including variable for missing label")
+        print("[ONE-HOT-ENCODING] Including variable for missing label")
         df[f"{str_col}_OTHER"] = np.where(~df[str_col].isin(labels), 1, 0)
 
     if drop:
-        print(f"[ONE-HOT-ENCODING] Dropping original categorical column")
+        print("[ONE-HOT-ENCODING] Dropping original categorical column")
         df.drop(columns=str_col, axis=1, inplace=True)
 
     return df
@@ -188,7 +188,7 @@ def train_dev_split_oot(
     date_dev_from = date_train_until - pd.Timedelta(num_days_dev, unit="D")
     date_dev_to = date_train_until
 
-    print(f"Date configuration:")
+    print("Date configuration:")
     print(
         "Train: {} / {}   |  dev: {} / {}".format(
             date_train_from, date_train_to, date_dev_from, date_dev_to,

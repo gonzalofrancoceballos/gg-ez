@@ -1,5 +1,7 @@
 from typing import Dict
+
 from kedro.pipeline import Pipeline
+
 from gg_ez.pipelines import fetch, pre_process
 
 

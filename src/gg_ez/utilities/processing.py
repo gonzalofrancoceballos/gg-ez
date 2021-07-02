@@ -1,6 +1,6 @@
+from multiprocessing import Pool
 from queue import Queue
 from threading import Thread
-from multiprocessing import Pool
 from typing import Callable, Iterable, List
 
 

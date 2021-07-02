@@ -1,4 +1,4 @@
-from typing import List, Union, Iterable
+from typing import Iterable, List, Union
 
 import pymongo
 from kedro.io import AbstractDataSet

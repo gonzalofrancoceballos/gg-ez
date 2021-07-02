@@ -1,5 +1,6 @@
 from kedro.pipeline import Pipeline, node
-from .nodes_fetch import fetch_player_stats_in_leagues, fetch_games, fetch_leagues
+
+from .nodes_fetch import fetch_games, fetch_leagues, fetch_player_stats_in_leagues
 
 
 def create_pipeline_fetch_leagues(**kwargs):
