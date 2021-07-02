@@ -1,5 +1,7 @@
 from typing import Dict
+
 from kedro.pipeline import Pipeline
+
 from gg_ez.pipelines import fetch, pre_process
 
 
@@ -24,14 +26,6 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     )
     preprocess_players_fixtures = (
         pre_process.create_pipeline_preprocess_players_fixtures()
-    )
-
-    fatch_all = (
-        fetch_player_stats_pipeline + fetch_games_pipeline + fetch_leagues_pipeline
-    )
-
-    preprocess_all = (
-        preprocess_leagues + preprocess_fixtures_leagues + preprocess_players_fixtures
     )
 
     return {

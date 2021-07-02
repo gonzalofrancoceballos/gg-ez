@@ -1,6 +1,7 @@
+from typing import List
+
 import pandas as pd
 
-from typing import List
 from gg_ez.utilities.pandas import unpack_columns
 
 COLS_TO_UNPACK_LEAGUES = [["coverage"], ["coverage_fixtures"]]

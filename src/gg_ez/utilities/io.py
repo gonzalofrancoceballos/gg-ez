@@ -1,7 +1,8 @@
 import json
-import yaml
 from pathlib import Path
 from typing import Union
+
+import yaml
 
 
 def read_json(file: Union[str, Path]) -> dict:

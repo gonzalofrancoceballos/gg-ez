@@ -1,14 +1,15 @@
 import os
 from pathlib import Path
+from typing import Any, Dict
+
 from kedro.io import AbstractDataSet
-from typing import Dict, Any
 
 from gg_ez.utilities.folder_data import (
     CSVFolderData,
-    JSONFolderData,
     ExcelFolderData,
-    HDFFolderData,
     FolderData,
+    HDFFolderData,
+    JSONFolderData,
 )
 
 DATA_FOLDER_OBJECTS = {

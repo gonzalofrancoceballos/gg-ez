@@ -4,7 +4,7 @@ from typing import Callable, Union
 import numpy as np
 import pandas as pd
 
-from utilities.decorators import rename
+from .decorators import rename
 
 
 def expand_by_period(
@@ -22,83 +22,45 @@ def expand_by_period(
     verbose: bool = False,
 ):
     """
-
     Efficient implementation of a process for creating time-wise aggregations
     for a set of variables for each ID
 
         - The sampling frequency between periods must be constant
-
         - The date variable(s) must be sortable
-
         - Different IDs can have distinct date ranges
 
     The resulting dataframe will contain variables named with the following
-    pattern
+    pattern '{agg_column_name}_{agg_name}_{period}{suffix}' ex: 'SALARY_mean_1W'
 
-        '{agg_column_name}_{agg_name}_{period}{suffix}'
-
-        ex: 'SALARY_mean_1W'
-
-    :param df_raw: dataframe to be expanded (pd.DataFrame)
-
-    :param id_col: name of the column(s) to use as id (list)
-
-    :param date_col: name of the column(s) to use as time period (list).
-
+    :param df_raw: dataframe to be expanded
+    :param id_col: name of the column(s) to use as id
+    :param date_col: name of the column(s) to use as time period
     :param periods: number of periods to aggregate. Positive periods mean
-    expanding towards the past while negative
-
-    ones mean expansions towards the future. E.g. periods = [1, 2, 3] means that
-    the previous (1), (1,2) and
-
-    (1,2,3) periods will be aggregated together for producing 3 new columns
-    (list)
-
-    :param suffix: suffix to be added to new column names (str)
-
+        expanding towards the past while negative ones mean expansions
+        towards the future. E.g. periods = [1, 2, 3] means that
+        the previous (1), (1,2) and (1,2,3) periods will be aggregated together for
+        producing 3 new columns
+    :param suffix: suffix to be added to new column names
     :param columns_to_expand: list of columns to process. If not defined, all
-    columns will be used.
-
-        If agg is given a dictionary, this parameter is omitted (list)
-
+        columns will be used. If agg is given a dictionary, this parameter is omitted
     :param agg: str, function, list of strs and functions, or dict. If a dict is
-    given,
-
-        columns_to_expand parameter is ignored. Otherwise the defined aggregation(s) will
-
-        be applied to specified columns. Strings are assumed to be numpy functions (i.e.
-
-        given str 'mean', it is assumed to be np.mean) (str, callable, list or dict)
-
+        given, columns_to_expand parameter is ignored. Otherwise the defined a
+        ggregation(s) will be applied to specified columns. Strings are assumed to be
+         numpy functions (i.e. given str 'mean', it is assumed to be np.mean)
     :param latest_period_available: how many periods of lag until date are
-    available (Default = 0)
-
-        (int).
-
-    :param return_only_agg_columns: If `True`, returns only newly created
-    columns as a DF. (Default
-
-        = False) (bool)
-
-    :param n_jobs: number of parallel jobs to use to run the process (Default =
-    1) (int)
-
+        available (Default = 0)
+    :param return_only_agg_columns: If `True`, returns only newly created columns
+        as a DF. (Default = False)
+    :param n_jobs: number of parallel jobs to use to run the process (Default = 1)
     :param copy: if set to True, a copy of the df_raw is made in order to avoid
-    modifying the original data
-
-    by reference (pd.DataFrame)
-
+        modifying the original data by reference (pd.DataFrame)
     :param verbose: (bool)
 
     :returns: DataFrame with new aggregated columns, left joined to the original
-    DataFrame. The order
-
-        of the items in the returned df will be sorted by id asc and date_col desc
-
-        (i.e. the latest observation will be the first) (pd.DataFrame)
+    DataFrame. The order of the items in the returned df will be sorted by id asc and
+    date_col desc (i.e. the latest observation will be the first) (pd.DataFrame)
 
     Example:
-
         df = expand_by_period_weekly(df, periods=[1, 4, 6, 10], agg={
             'SALARY': [np.mean, 'min', 'max'],
             'SALARY_CNT': 'mean'})
@@ -216,6 +178,7 @@ def _generate_feature_aggregations(
     """
     Given a DataFrame, this function applies the aggregation function specified
     over the periods indicated.
+
     :param df: dataframe to use as a base for generating the aggregations
     :param agg_col: name of the column to aggregate by (str)
     :param agg_funcs: functions to do the aggregations (list or str)
@@ -227,6 +190,7 @@ def _generate_feature_aggregations(
     :param latest_period_available: how many periods of lag until data is
     available (Default = 0) (str)
     :param verbose: indicates if the function must print messages (bool)
+
     :return: list of tuples, each of them indicating the name of the feature
     created and the feature itself (list)
     """
@@ -266,7 +230,8 @@ def _generate_feature_aggregations(
                     ][::-1],
                     axis=0,
                 )
-                # Axis inversion to have the most close to the present time in the first position
+                # Axis inversion to have the most close to the present time in
+                # the first position
             else:  # Future
                 aggregation = agg_func(
                     shift_matrix[
@@ -285,8 +250,8 @@ def _generate_feature_aggregations(
 def _generate_shift_matrix(feature: np.array, mask: np.array, periods: list):
     """
     Generates a matrix with the shift periods needed for building the expanded
-    dataframe. This function is called from
-    the expand_by_period function.
+    dataframe. This function is called from the expand_by_period function.
+
     :param feature: vector with the feature data, extracted from the sorted
     dataframe (np.array)
     :param mask: vector with the same elements as 'feature' - 1 with boolean
@@ -317,7 +282,8 @@ def _generate_shift_matrix(feature: np.array, mask: np.array, periods: list):
     # We'll collect shifted arrays in this variable.
     shift_matrix = [feature]
 
-    # And we shift the data one-by-one, omit the value at id change, then collect in shift_matrix.
+    # And we shift the data one-by-one, omit the value at id change,
+    # then collect in shift_matrix.
     for period in range(np.min([min(periods), 0]), np.max([max(periods), 0])):
         if period == 0:
             feature = feature_original.copy()

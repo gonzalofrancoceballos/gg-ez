@@ -1,6 +1,7 @@
 import re
+from typing import Callable, Iterable, List, Union
+
 import numpy as np
-from typing import List, Iterable, Union, Callable
 
 
 def apply_regex_filter(values: Iterable[str], pattern: str) -> List[str]:

@@ -1,10 +1,10 @@
-from typing import List, Union, Iterable
+from typing import Iterable, List, Union
 
 import pymongo
 from kedro.io import AbstractDataSet
 
 
-class MongoDataset(AbstractDataSet):
+class MongoDataSet(AbstractDataSet):
     """Handles i/o for data that is split into files inside of a folder"""
 
     def __init__(self, address: str, database_name: str, collection_name: str):

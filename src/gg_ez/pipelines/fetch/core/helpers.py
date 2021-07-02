@@ -1,5 +1,7 @@
-import pandas as pd
 from typing import List
+
+import pandas as pd
+
 from gg_ez.pipelines.pre_process.core.league import leagues_dict2df
 
 
@@ -27,7 +29,7 @@ def get_league_ids(
         leagues = leagues[(leagues["is_current"] == 1)].copy()
 
     if fixtures_players_statistics:
-        leagues = leagues[(leagues["coverage_fixtures_players_statistics"] == True)]
+        leagues = leagues[leagues["coverage_fixtures_players_statistics"]]
 
     league_ids = leagues["league_id"]
     return league_ids

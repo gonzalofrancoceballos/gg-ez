@@ -1,8 +1,9 @@
+from typing import Any, List
+
 import numpy as np
 
-from typing import List, Any
-from gg_ez.utilities.processing import apply_multiprocessing
 from gg_ez.utilities.dict import flatten_dict
+from gg_ez.utilities.processing import apply_multiprocessing
 
 
 def pre_process_leagues(leagues: List[dict]) -> List[dict]:

@@ -30,9 +30,10 @@
 from pathlib import Path
 from typing import Dict
 
-from gg_ez.pipeline import create_pipelines
 from kedro.framework.context import KedroContext, load_package_context
 from kedro.pipeline import Pipeline
+
+from gg_ez.pipeline import create_pipelines
 
 
 class ProjectContext(KedroContext):

@@ -1,8 +1,9 @@
-import pandas as pd
-import numpy as np
-from gg_ez.utilities.pandas import unpack_columns
 from typing import List, Tuple
 
+import numpy as np
+import pandas as pd
+
+from gg_ez.utilities.pandas import unpack_columns
 
 COLS_TO_UNPACK = [
     "shots",

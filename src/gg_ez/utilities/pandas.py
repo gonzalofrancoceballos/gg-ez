@@ -1,4 +1,4 @@
-from typing import Union, List, Any
+from typing import Any, List, Union
 
 import pandas as pd
 

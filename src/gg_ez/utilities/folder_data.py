@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
 
 import pandas as pd
 

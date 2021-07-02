@@ -38,6 +38,7 @@ To run the tests, run ``kedro test``.
 from pathlib import Path
 
 import pytest
+
 from gg_ez.run import ProjectContext
 
 
